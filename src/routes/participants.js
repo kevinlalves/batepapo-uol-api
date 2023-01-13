@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(chalk.red("Error getting data from participans collection"));
     console.log(error);
+    res.status(500).send("Could not get participants");
   }
 });
 

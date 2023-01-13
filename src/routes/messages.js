@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(chalk.red("Error getting data from messages collection"));
     console.log(error);
+    res.status(500).send("Could not get messages");
   }
 });
 
