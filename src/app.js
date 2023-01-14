@@ -2,7 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import chalk from "chalk";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 import { router as participansRouter } from "./routes/participants.js";
 import { router as messagesRouter } from "./routes/messages.js";
 dotenv.config();
@@ -26,6 +26,17 @@ app.use(cors());
 app.use(json());
 app.use("/participants", participansRouter);
 app.use("/messages", messagesRouter);
+
+app.post("/status", (req, res) => {
+  const { user } = req.headers;
+
+  console.log(chalk.cyan("POST /status"));
+  try {
+    const result = db.collection("participants").updateOne({ name: user }, { $set: { lastStatus: Date.now() } });
+  } catch (error) {
+
+  }
+});
 
 app.listen(PORT, () => {
   console.log(chalk.green(`Server listening on port ${PORT}`));
