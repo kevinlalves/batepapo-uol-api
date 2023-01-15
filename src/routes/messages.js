@@ -1,20 +1,12 @@
 import { Router } from "express";
-import { db } from "../app.js";
-import chalk from "chalk";
+import createMessage from "../controllers/messages/create.js";
+import deleteMessage from "../controllers/messages/delete.js";
+import indexMessages from "../controllers/messages/index.js";
+import updateMessage from "../controllers/messages/update.js";
 
 export const router = Router("/messages");
 
-router.get("/", async (req, res) => {
-  console.log(chalk.cyan("GET /messages"));
-  try {
-    const participants = await db.collection("messages").find().toArray();
-    res.send(participants);
-  } catch (error) {
-    console.log(chalk.red("Error getting data from messages collection"));
-    console.log(error);
-    res.status(500).send("Could not get messages");
-  }
-});
-
-router.post("/", () => {
-});
+router.get("/", indexMessages);
+router.post("/", createMessage);
+router.put("/:id", updateMessage);
+router.delete("/:id", deleteMessage);
