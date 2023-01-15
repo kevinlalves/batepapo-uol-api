@@ -5,12 +5,11 @@ import formatedTime from "../../helpers/format_time.js";
 import { ObjectId } from "mongodb";
 import validate from "../../helpers/validation.js";
 import schema from "../../schemas/participant.js";
-import { stripHtml } from "string-strip-html";
 import sanitize from "../../helpers/sanitize.js";
 const resource = "participant";
 
 export default async function createParticipant(req, res) {
-  let { name } = sanitize(req.body);
+  const { name } = sanitize(req.body);
 
   console.log(chalk.cyan("POST /participants"));
   try {
