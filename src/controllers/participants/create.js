@@ -20,7 +20,7 @@ export default async function createParticipant(req, res) {
     await messages.insertOne({
       from: name,
       to: "Todos",
-      text: "Entra na sala...",
+      text: "entra na sala...",
       type: "status",
       time: formatedTime(new Date()),
       updatedAt: Date.now()

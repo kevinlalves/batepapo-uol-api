@@ -8,7 +8,12 @@ export default async function updateStatus(req, res) {
 
   console.log(chalk.cyan("POST /status"));
   try {
-    const result = participants.updateOne({ name: user }, { $set: { lastStatus: Date.now() } });
+    const result = await participants.updateOne({ name: user }, { $set: { lastStatus: Date.now() } });
+    if (!result.modifiedCount) {
+      return res.status(404).send("Participant is not logged in")
+    }
+
+    res.send("OK");
   } catch (error) {
     updateError(resource, error, res);
   }

@@ -18,7 +18,7 @@ export default async function indexMessages(req, res) {
   try {
     const participant = await participants.findOne({ name: user });
     if (!participant) {
-      return res.status(404).send("Sender not found");
+      return res.status(404).send("User not found");
     }
 
     let cursor = messages.find().sort({ updatedAt: -1 });
