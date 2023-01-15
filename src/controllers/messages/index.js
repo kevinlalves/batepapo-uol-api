@@ -21,7 +21,7 @@ export default async function indexMessages(req, res) {
       return res.status(404).send("User not found");
     }
 
-    let cursor = messages.find().sort({ updatedAt: -1 });
+    let cursor = filterPrivateMessages(user);
     if (limit) {
       cursor = cursor.limit(limit);
     }
@@ -32,4 +32,9 @@ export default async function indexMessages(req, res) {
   catch (error) {
     showError(resource, error, res);
   }
+}
+
+function filterPrivateMessages(user) {
+  return messages.find({ $or: [{ type: { $ne: "private_message" } }, { $or: [{ from: user }, { to: user }] }] })
+    .sort({ updatedAt: -1 });
 }
