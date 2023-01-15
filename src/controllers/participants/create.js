@@ -3,6 +3,8 @@ import chalk from "chalk";
 import { createError } from "../../helpers/internal_errors.js";
 import formatedTime from "../../helpers/format_time.js";
 import { ObjectId } from "mongodb";
+import validate from "../../helpers/validation.js";
+import schema from "../../schemas/participant.js";
 const resource = "participant";
 
 export default async function createParticipant(req, res) {
@@ -10,6 +12,11 @@ export default async function createParticipant(req, res) {
 
   console.log(chalk.cyan("POST /participants"));
   try {
+    const validation = validate({ name }, schema, res);
+    if (!validation) {
+      return;
+    }
+
     const participant = await participants.findOne({ name });
     if (participant) {
       return res.status(409).send("Participant already exists");

@@ -4,6 +4,4 @@ const schema = Joi.object({
   name: Joi.string().required(),
 });
 
-export default function validateParticipant(participant) {
-  return Joi.validate(participant, schema);
-}
+export default schema;
