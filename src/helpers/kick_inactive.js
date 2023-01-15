@@ -24,7 +24,7 @@ async function createLeavingMessage(user) {
       from: user,
       to: "Todos",
       type: "status",
-      texto: "sai da sala...",
+      text: "sai da sala...",
       time: formatedTime(new Date()),
       updatedAt: Date.now()
     });

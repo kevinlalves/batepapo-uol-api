@@ -24,7 +24,7 @@ export default async function deleteMessage(req, res) {
     }
 
     await messages.deleteOne({ _id: ObjectId(id) });
-    res.sendStatus(204);
+    res.sendStatus(200);
   }
   catch (error) {
     deleteError(resource, error, res);
