@@ -23,7 +23,7 @@ export default async function indexMessages(req, res) {
 
     let cursor = filterPrivateMessages(user);
     if (limit) {
-      cursor = cursor.limit(limit);
+      cursor = cursor.limit(Number(limit));
     }
 
     const messageList = await cursor.toArray();
