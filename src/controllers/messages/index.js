@@ -35,6 +35,6 @@ export default async function indexMessages(req, res) {
 }
 
 function filterPrivateMessages(user) {
-  return messages.find({ $or: [{ type: { $ne: "private_message" } }, { $or: [{ from: user }, { to: user }] }] })
+  return messages.find({ $or: [{ type: { $ne: "private_message" } }, { from: user }, { to: user }] })
     .sort({ updatedAt: -1 });
 }
